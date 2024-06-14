@@ -4,7 +4,7 @@ Tests for the functions in match.py
 import json
 import pytest
 
-from src.match import filter_jobs_by_location, get_candidate_location
+from src.match import filter_jobs_by_location, get_candidate_location, rank_jobs
 
 class TestMatch:
     """Tests match functions"""
@@ -23,6 +23,13 @@ class TestMatch:
     def test_get_candidate_location(self):
         """Test get_candidate_location"""
         job_locations = set([job["location"].lower() for job in self.jobs])
-        assert get_candidate_location(self.members[0], job_locations) == ["london"]
-        assert set(get_candidate_location(self.members[3], job_locations)) == set(["edinburgh", "york", "manchester"])
+        assert get_candidate_location(self.members[0], job_locations.copy()) == ["london"]
+        assert set(get_candidate_location(self.members[3], job_locations.copy())) == set(["edinburgh", "york", "manchester"])
+        assert get_candidate_location(self.members[4], job_locations.copy()) == ["london"]
+    
+    def test_rank_jobs(self):
+        """Test rank_jobs"""
+        bio = self.members[0]["bio"]
+        job_titles = [job["title"].lower() for job in self.jobs]
+        assert rank_jobs(bio, job_titles) == {"ux designer": 1}
 

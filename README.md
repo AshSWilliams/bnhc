@@ -16,20 +16,20 @@ The code follows a two-step algorithm for matching candidates to jobs.
 This code takes a naive approach based on the provided format of the candidate bios:
 1. Determine what location(s) we have jobs in by reading the job listings.
 2. Search through the bio for one of three sorts of tokens:
-  a. A token which indicates that the candidate does *not* want to work in the following location, here just "outside".
-  b. A token which indicates that the candidate *only* wants to work in the following location and hence all others should be ignored, here just "relocate".
-  c. A token matching one of the locations.
+    a. A token which indicates that the candidate does *not* want to work in the following location, here just "outside".
+    b. A token which indicates that the candidate *only* wants to work in the following location and hence all others should be ignored, here just "relocate".
+    c. A token matching one of the locations.
 3. If the token is a location:
-  a. If the candidate has expressed a desire to only work in this location, stop iterating and return only that location
-  b. If the candidate does not want to work in this location, remove it from the list of job locations and continue
-  c. Otherwise, simply add it to the list.
+    a. If the candidate has expressed a desire to only work in this location, stop iterating and return only that location
+    b. If the candidate does not want to work in this location, remove it from the list of job locations and continue
+    c. Otherwise, simply add it to the list.
 4. If we get to the end and have not added any locations to the list, assume the candidate has no further preference and return all non-excluded locations.
 5. Remove any jobs from the list which are not in a location acceptable to the candidate.
 
 ### Job description parsing
 This step is more simple:
 1. Iterate through the candidate's bio word by word and compare each word to the description.
-  a. We ignore words shorter than 5 characters to avoid matching on words like "a".
+    a. We ignore words shorter than 5 characters to avoid matching on words like "a".
 2. If there word is contained within the description, give that job a point.
 3. At the end, return all jobs with the highest number of points to the user.
 

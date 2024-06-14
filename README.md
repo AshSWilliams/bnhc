@@ -37,7 +37,7 @@ This step is more simple:
 ### NLP / ML
 This task is a good fit for using either a natural language processor or a machine learning model. However the former is too complex for the scope of this exercise and making use of an AI for this task feels a little bit like cheating.
 
-I spent some time investigating (spaCy)[https://spacy.io/usage/] which offers powerful NLP tools in python; if I were implementing this as part of a work task I would probably try to use it to simplify the task of parsing bios. Python also has powerful ML/AI tooling, though I didn't investigate them here.
+I spent some time investigating [spaCy](https://spacy.io/usage/) which offers powerful NLP tools in python; if I were implementing this as part of a work task I would probably try to use it to simplify the task of parsing bios. Python also has powerful ML/AI tooling, though I didn't investigate them here.
 
 ### Matching words in job descriptions
 It works for the given data, but simply looking for substrings in the job description is fragile. "Design" in Hassan's bio matches "designer" but would not work the other way around, for example. We could make use of an NLP to determine semantic closeness of words, rather than looking for exact matches - so someone looking for a job in "user experience" would hopefully not miss out on a role looking for "UX".

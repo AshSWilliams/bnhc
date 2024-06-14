@@ -3,7 +3,7 @@ This repository contains a solution to the Bright Network Hiring Challenge.
 
 ## Running the code
 This project is written in Python and makes use of Poetry.
-First install dependencies with `poetry install` and then run the code with `poetry run python main.py`
+First install dependencies with `poetry install` and then run the code with `poetry run python src/main.py`
 You can also run the code manually, just make sure you install `requests` first.
 Run the (very basic) unit tests with `poetry run pytest`.
 
@@ -36,14 +36,17 @@ This step is more simple:
 ## Improvements
 ### NLP / ML
 This task is a good fit for using either a natural language processor or a machine learning model. However the former is too complex for the scope of this exercise and making use of an AI for this task feels a little bit like cheating.
+
 I spent some time investigating (spaCy)[https://spacy.io/usage/] which offers powerful NLP tools in python; if I were implementing this as part of a work task I would probably try to use it to simplify the task of parsing bios. Python also has powerful ML/AI tooling, though I didn't investigate them here.
 
 ### Matching words in job descriptions
-It works for the given data, but simply looking for substrings in the job description is fragile. "Design" in Hassan's bio matches "designer" but would not work the other way around, for example. We could make use of an NLP to determine semantic closeness of words, rather than looking for exact matches - so someone looking for a job in "user experience" would hopefully not miss out on a role looking for "UX". 
+It works for the given data, but simply looking for substrings in the job description is fragile. "Design" in Hassan's bio matches "designer" but would not work the other way around, for example. We could make use of an NLP to determine semantic closeness of words, rather than looking for exact matches - so someone looking for a job in "user experience" would hopefully not miss out on a role looking for "UX".
+
 I also note that this system is open to exploitation; when used to scan CVs it incentivises candidates to fill their CVs with key words which they know the algorithm will be scanning for and making the scanning algorithm useless. Asking an AI to scan the CV runs into similar problems.
 
 ### Determining job locations
 spaCy can identify "entities" in a text which refer to a proper noun; this can be used to spot locations (GPEs) without needing a pre-populated list. Here it is less useful because we are not interested in locations which aren't mentioned in a job advert.
+
 If continuing with this naive approach it would be worth putting further thought into how to deal with multiple named locations (and cities with multiple words in their name) and locations where a candidate does not want to be. In addition to "outside" we could search for phrases such as "not in", "anywhere but", and so on. It's also possible that some candidates might be willing to move, for example Joe states he is from London, but it doesn't necessarily follow that he wants only to work there.
 
 ### Don't give candidates free-form bios

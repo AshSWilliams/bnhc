@@ -5,6 +5,7 @@ This repository contains a solution to the Bright Network Hiring Challenge.
 This project is written in Python and makes use of Poetry.
 First install dependencies with `poetry install` and then run the code with `poetry run python main.py`
 You can also run the code manually, just make sure you install `requests` first.
+Run the (very basic) unit tests with `poetry run pytest`.
 
 ## Approach taken
 The code follows a two-step algorithm for matching candidates to jobs.
@@ -43,7 +44,7 @@ I also note that this system is open to exploitation; when used to scan CVs it i
 
 ### Determining job locations
 spaCy can identify "entities" in a text which refer to a proper noun; this can be used to spot locations (GPEs) without needing a pre-populated list. Here it is less useful because we are not interested in locations which aren't mentioned in a job advert.
-If continuing with this naive approach it would be worth putting further thought into how to deal with multiple named locations and locations where a candidate does not want to be. In addition to "outside" we could search for phrases such as "not in", "anywhere but", and so on.
+If continuing with this naive approach it would be worth putting further thought into how to deal with multiple named locations (and cities with multiple words in their name) and locations where a candidate does not want to be. In addition to "outside" we could search for phrases such as "not in", "anywhere but", and so on. It's also possible that some candidates might be willing to move, for example Joe states he is from London, but it doesn't necessarily follow that he wants only to work there.
 
 ### Don't give candidates free-form bios
 It might be easier to process the data if the candidates provide a list of locations and a list of jobs they're interested in rather than allowing them to present this information in arbitrary ways. They could still have a bio, but it would be easier to determine where Daisy wanted to work if her data looked like
